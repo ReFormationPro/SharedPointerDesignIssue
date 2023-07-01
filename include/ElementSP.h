@@ -10,7 +10,8 @@ class ElementSP : public std::shared_ptr<Element> {
   // Required constructor for shared pointer casting
   template <typename Type>
   ElementSP(Type&& element)
-      : std::shared_ptr<Element>(std::dynamic_pointer_cast<Element>(element)){};
+      : std::shared_ptr<Element>(
+            std::dynamic_pointer_cast<Element>(std::forward<Type>(element))){};
 
   /**
    * TODO Move this to another branch
