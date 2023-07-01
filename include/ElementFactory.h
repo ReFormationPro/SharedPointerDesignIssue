@@ -64,12 +64,14 @@ class RegisteredInFactory {
     // Do not let it get optimized out by the compiler
     registered_;
   }
+
+ public:
+  static std::shared_ptr<T> Create() { return std::make_shared<T>(); }
   // Implement the following in the derived class
   /*
   static std::string GetFactoryName() {
     throw std::runtime_error("Not implemented");
   }
-  static ElementSP Create() { throw std::runtime_error("Not implemented"); }
   */
 };
 
@@ -79,5 +81,5 @@ class RegisteredInFactory {
 template <typename T>
 bool RegisteredInFactory<T>::registered_ =
     ElementFactory::Register(T::GetFactoryName(), []() -> ElementSP {
-      return T::Create();
+      return RegisteredInFactory<T>::Create();
     });

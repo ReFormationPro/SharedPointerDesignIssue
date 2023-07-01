@@ -17,10 +17,6 @@ class MyFilter : public Element, public RegisteredInFactory<MyFilter> {
   // Methods needed by element factory
   static std::string GetFactoryName() { return "MyFilter"; }
 
-  static std::shared_ptr<MyFilter> Create() {
-    return std::make_shared<MyFilter>();
-  }
-
   bool Configure(ConfigDictionary&& dict) override {
     std::cerr << "MyFilter configure." << std::endl;
     return false;

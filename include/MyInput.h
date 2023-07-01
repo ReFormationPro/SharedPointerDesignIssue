@@ -14,10 +14,6 @@ class MyInput : public Element, public RegisteredInFactory<MyInput> {
   // TODO Remove
   static std::string GetFactoryName() { return "MyInput"; }
 
-  static std::shared_ptr<MyInput> Create() {
-    return std::make_shared<MyInput>();
-  }
-
   bool Configure(ConfigDictionary&& dict) override {
     std::cerr << "MyInput configure." << std::endl;
     return false;
