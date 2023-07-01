@@ -48,6 +48,18 @@ int main(int argc, char** argv) {
   ElementSP derived_filter_sp_c = ElementFactory::Create("MyDerivedFilter", c);
   derived_filter_sp_a->Chain(derived_filter_sp_b)->Chain(derived_filter_sp_c)->Chain(derived_filter_sp_a);
   std::cout << "Test 4 is done" << std::endl;
+  std::cout << "Test 5: std::make_shared(), shared_from_this() reference count test" << std::endl;
+  std::shared_ptr<MyFilter> filter_sp_5 = MyFilter::Create();
+  std::cout << "Reference count: " << filter_sp_5.use_count() << std::endl;
+  std::cout << "Creating shared pointer with shared_from_this" << std::endl;
+  auto filter_sp_5_shared_from_this = filter_sp_5->ptr();
+  std::cout << "Reference count: " << filter_sp_5.use_count() << std::endl;
+  std::cout << "Reference count shared from this: " << filter_sp_5_shared_from_this.use_count() << std::endl;
+  std::cout << "Resetting filter_sp_5" << std::endl;
+  filter_sp_5.reset();
+  std::cout << "Reference count: " << filter_sp_5.use_count() << std::endl;
+  std::cout << "Reference count shared from this: " << filter_sp_5_shared_from_this.use_count() << std::endl;
+  std::cout << "Test 5 is done" << std::endl;
   // Skip the performance test if no one asks for it
   if (argc == 1) return 0;
   std::cout << "Test Infinity: Performance test" << std::endl;
